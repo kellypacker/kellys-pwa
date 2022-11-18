@@ -37,7 +37,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          <Link href="/test">TEST LINK</Link>
+          <Link href="/test">TEST</Link>
         </h1>
 
         <p className="description">
