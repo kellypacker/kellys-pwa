@@ -27,9 +27,6 @@ module.exports = async (phase) => {
 
   const allConfig = {
     ...config,
-    nx: {
-      svgr: false,
-    },
     images: {
       domains: ['moar-prod.imgix.net', 'moar-staging.imgix.net', 'moar-media-staging.s3.amazonaws.com'],
     },
