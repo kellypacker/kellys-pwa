@@ -24,5 +24,7 @@
     "start_url": "/?standalone=true",
     "display": "standalone",
     "orientation": "portrait",
-    "id": "/?standalone=true"
+    "id": "/?standalone=true",
+    "scope": ".",
+    "splash_pages": null
 }
