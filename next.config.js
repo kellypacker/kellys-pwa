@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withPWA = require('next-pwa')
-// const runtimeCaching = require('next-pwa/cache')
+const runtimeCaching = require('next-pwa/cache')
 // const runtimeCaching = require('./worker/cache')
 
 // https://dev.to/sfiquet/precaching-pages-with-next-pwa-31f2#how-to-precache-pages
