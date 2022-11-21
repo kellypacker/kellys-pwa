@@ -26,5 +26,9 @@
     "orientation": "portrait",
     "id": "/?standalone=true",
     "scope": "/",
-    "splash_pages": null
+    "splash_pages": null,
+    "launch_handler": {
+        "route_to": "existing-client",
+        "navigate_existing_client": "never"
+    }
 }
