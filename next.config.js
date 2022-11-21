@@ -5,10 +5,14 @@ const { PHASE_PRODUCTION_BUILD } = require('next/constants')
 
 // https://dev.to/sfiquet/precaching-pages-with-next-pwa-31f2#how-to-precache-pages
 module.exports = async (phase) => {
-
     const config = {
         pwa: {
-            mode: 'production'
+            // doesn't seem to work
+            mode: 'production',
+            runtimeCaching,
+            // adding these made it run in prod?
+            sw: 'sw.js',
+            dest: 'public',
         },
     }
 
