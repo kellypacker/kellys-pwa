@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod": "NODE_ENV=production npm run build && npm run start"
+    "prod": "NODE_ENV=production npm run build"
   },
   "dependencies": {
     "next": "12.3.1",
