@@ -25,6 +25,6 @@
     "display": "standalone",
     "orientation": "portrait",
     "id": "/?standalone=true",
-    "scope": ".",
+    "scope": "/",
     "splash_pages": null
 }
