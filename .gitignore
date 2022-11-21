@@ -28,3 +28,10 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# auto generated via next
+/public/worker-*.js
+/public/workbox-*.map
+/public/workbox-*.js
+/public/sw.js
+/public/fallback-*.js
