@@ -20,6 +20,8 @@ module.exports = async (phase) => {
     const buildId = getBuildId();
     config.generateBuildId = getBuildId;
     const precachedEntries = [
+        { "url" : "/manifest.json", "revision": null },
+        { "url" : "/test", "revision": buildId },
         { "url" : "/test", "revision": buildId },
         { "url" : `/_next/data/${buildId}/test.json`, "revision":null },
         { "url" : "/test-nested", "revision": buildId },
