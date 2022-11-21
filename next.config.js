@@ -23,7 +23,7 @@ module.exports = async (phase) => {
         { "url" : "/test", "revision": buildId },
         { "url" : `/_next/data/${buildId}/test.json`, "revision":null },
         { "url" : "/test-nested", "revision": buildId },
-        { "url" : `/_next/data/${buildId}/test-nested.json`, "revision":null }
+        { "url" : `/_next/data/${buildId}/test-nested.json`, "revision":null },
         { "url" : "/test-slug", "revision": buildId },
         { "url" : `/_next/data/${buildId}/test-slug.json`, "revision":null }
     ];
