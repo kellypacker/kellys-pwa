@@ -4,7 +4,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod": "NODE_ENV=production npm run build"
+    "prod": "NODE_ENV=production npm run build",
+    "pwa": "npm run rmpwa && NODE_ENV=production npm run build && NODE_ENV=production npm run start",
+    "rmpwa": "find public/ -iname \"workbox-*.js\" -delete && find public/ -iname \"worker-*.js\" -delete && rm -Rf dist/ && rm public/sw.js"
   },
   "dependencies": {
     "next": "12.3.1",
