@@ -107,16 +107,17 @@ module.exports = [
     urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
     handler: 'StaleWhileRevalidate',
     options: {
-      cacheName: 'next-data',
+      cacheName: 'workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/',
       expiration: {
         maxEntries: 32,
         maxAgeSeconds: 24 * 60 * 60 // 24 hours
       },
-      matchOptions: {
-          ignoreMethod: true, 
-          ignoreVary: true, 
-          ignoreSearch: true
-      }
+      // not working
+    //   matchOptions: {
+    //       ignoreMethod: true, 
+    //       ignoreVary: true, 
+    //       ignoreSearch: true
+    //   }
     }
   },
   {
