@@ -24,10 +24,10 @@ module.exports = async (phase) => {
         { "url" : `/_next/data/${buildId}/test.json`, "revision":null },
         { "url" : "/test-nested", "revision": buildId },
         { "url" : `/_next/data/${buildId}/test-nested.json`, "revision":null }
+        { "url" : "/test-slug", "revision": buildId },
+        { "url" : `/_next/data/${buildId}/test-slug.json`, "revision":null }
     ];
     config.pwa.additionalManifestEntries = precachedEntries;
 
-    console.log({config});
-  
     return withPWA(config);
 }
