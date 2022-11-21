@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prod": "NODE_ENV=production npm run build && npm run start"
   },
   "dependencies": {
     "next": "12.3.1",
