@@ -13,6 +13,9 @@ module.exports = async (phase) => {
             // adding these made it run in prod?
             sw: 'sw.js',
             dest: 'public',
+            navigateFallback: "/offline",
+            sourcemap: true,
+            cleanupOutdatedCaches: true,
         },
     }
 
@@ -21,7 +24,7 @@ module.exports = async (phase) => {
     config.generateBuildId = getBuildId;
     const precachedEntries = [
         { "url" : "/manifest.json", "revision": null },
-        { "url" : "/test", "revision": buildId },
+        { "url" : "/offline", "revision": buildId },
         { "url" : "/test", "revision": buildId },
         { "url" : `/_next/data/${buildId}/test.json`, "revision":null },
         { "url" : "/test-nested", "revision": buildId },
