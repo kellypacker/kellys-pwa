@@ -11,6 +11,28 @@ const fetchCachedNextData = (event) => {
     console.log(fileName);
     // e.g.`workbox-precache-v2-http://localhost:4200/`;
     const cacheName = `workbox-precache-v2-${location.origin}/`;
+
+    // remove older versions of the page
+    cache.keys().then((keys) => {
+        console.log({keys});
+        const matches = keys.filter(request => {
+            return request.url.includes(fileName);
+        });
+        console.log({matches});
+
+        if (matches.length > 1) {
+            // filter out current request
+            // also files with __WB_REVISION__ - not exactly sure what part they play
+            const toDelete = matches.filter(request => {
+                return request.url !== cachedResponse.url;
+            });
+            console.log(toDelete);
+            toDelete.forEach((request, index, array) => {
+                cache.delete(request);
+            });
+        }
+    });
+
     // match request to cache, also fetch request. 
     // update cache and serve what is available
     event.respondWith(caches.open(cacheName).then((cache) => {
@@ -33,26 +55,6 @@ const fetchCachedNextData = (event) => {
                 });
                 if (cachedResponse) {
                     console.log('FOUND', url.href);
-                    // if there is a caches repsonse, remove 
-                    // is the first one in the array the most recent? Should it use the current one?
-                    cache.keys().then((keys) => {
-                        console.log({keys});
-                        const matches = keys.filter(request => {
-                            return request.url.includes(fileName);
-                        });
-                        console.log({matches});
-
-                        if (matches.length > 1) {
-                            // filter out current request
-                            const toDelete = matches.filter(request => {
-                                return request.url !== cachedResponse.url || request.url.inclues('__WB_REVISION__');
-                            });
-                            console.log(toDelete);
-                            toDelete.forEach((request, index, array) => {
-                                cache.delete(request);
-                            });
-                        }
-                    });
 
                 } else {
                     
