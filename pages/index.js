@@ -1,22 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import {useEffect, useState} from 'react';
 
 export default function Home() {
-
-  const [storageUsage, setStorageUsage] = useState();
-  const [storageQuota, setStorageQuota] = useState();
-  useEffect(() => {
-    if ('storage' in navigator && 'estimate' in navigator.storage) { 
-      navigator.storage.estimate() 
-          .then(function(estimate){ 
-                  console.log(`Using ${estimate.usage} out of ${estimate.quota} bytes.`); 
-                  setStorageUsage(estimate.usage)
-                  setStorageQuota(estimate.quota)
-              }); 
-    }
-  }, [])
-
   return (
     <div className="container">
       <Head>
@@ -50,12 +35,10 @@ export default function Home() {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
-
       <main>
         <h1 className="title">
           <Link href="/test">PWA Safari offline test</Link>
         </h1>
-        <h2>Using {storageUsage} out of {storageQuota} bytes.</h2>
       </main>
 
     </div>
