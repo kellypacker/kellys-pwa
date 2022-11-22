@@ -12,6 +12,7 @@ import {StaleWhileRevalidate} from 'workbox-strategies';
       cachedResponse,
       event
     }) => {
+        console.log('ignoreQueryStringPlugin');
       console.log(request.url);
       if (cachedResponse) {
         return cachedResponse;

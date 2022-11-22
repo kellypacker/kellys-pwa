@@ -12,6 +12,12 @@ export default function Test() {
             <h1>
                 <Link href="/test-slug">TEST slug</Link>
             </h1>
+            <h1>
+                <a href="/test-slug">Link TEST slug</a>
+            </h1>
+            <h1>
+                <a href="https://merry-bonbon-pwa.netlify.app/test-slug">Link TEST slug full</a>
+            </h1>
         </>
     )
 }
