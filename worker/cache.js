@@ -1,6 +1,6 @@
 'use strict'
 
-// Workbox RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
+// Workbox RuntimeCaching config: https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-RuntimeCaching
 module.exports = [
   {
     urlPattern: /\.(?:js)$/i,
@@ -24,19 +24,19 @@ module.exports = [
       }
     }
   },
-  {
-    urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
-    handler: 'StaleWhileRevalidate',
-    options: {
-      cacheName: 'workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/',
-      expiration: {
-        maxEntries: 200,
-        maxAgeSeconds: 24 * 60 * 60 // 24 hours
-      },
-      // not working
-      matchOptions: {
-          ignoreSearch: true
-      }
-    }
-  },
+//   {
+//     urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
+//     handler: 'StaleWhileRevalidate',
+//     options: {
+//       cacheName: 'workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/',
+//       expiration: {
+//         maxEntries: 200,
+//         maxAgeSeconds: 24 * 60 * 60 // 24 hours
+//       },
+//       // not working
+//       matchOptions: {
+//           ignoreSearch: true
+//       }
+//     }
+//   },
 ]

@@ -1,4 +1,42 @@
 'use strict'
+import {registerRoute} from 'workbox-routing';
+import {ExpirationPlugin} from 'workbox-expiration';
+import {StaleWhileRevalidate} from 'workbox-strategies';
+
+ /* ignore query string */
+ const ignoreQueryStringPlugin = {
+    cachedResponseWillBeUsed: async ({
+      cacheName,
+      request,
+      matchOptions,
+      cachedResponse,
+      event
+    }) => {
+      console.log(request.url);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      // this will match same url/diff query string where the original failed
+      return caches.match(request.url, { ignoreSearch: true });
+    }
+};
+
+registerRoute(/\/_next\/data\/.+\/.+\.json/i, new StaleWhileRevalidate({
+    // cacheName: "workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/",
+    cacheName: "workbox-precache-v2-https://localhost:3000/",
+    networkTimeoutSeconds: 10,
+    matchOptions: {
+        ignoreSearch: true
+    },
+    plugins: [
+        new ExpirationPlugin({
+            maxEntries: 500,
+            maxAgeSeconds: 86400
+        }),
+        ignoreQueryStringPlugin
+    ]
+}), "GET")
 
 const fetchCachedNextData = (event) => {
     const url = new URL(event.request.url);
@@ -80,15 +118,15 @@ const fetchCachedNextData = (event) => {
   };
 
 // use one fetch to keep track of which fetches are handled
-self.addEventListener('fetch', (event) => {
-    const url = new URL(event.request.url);
+// self.addEventListener('fetch', (event) => {
+//     const url = new URL(event.request.url);
   
-    const isNextData = url.href.includes('/_next/data') && event.request.method !== 'HEAD';
+//     const isNextData = url.href.includes('/_next/data') && event.request.method !== 'HEAD';
   
-    if (isNextData) {
-      return fetchCachedNextData(event);
-    } else {
-        return;
-    }
-  });
+//     if (isNextData) {
+//       return fetchCachedNextData(event);
+//     } else {
+//         return;
+//     }
+//   });
   
