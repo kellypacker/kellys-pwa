@@ -3,18 +3,24 @@
 const fetchCachedNextData = (event) => {
     const url = new URL(event.request.url);
     
-    // get file name
-    const findFile = new RegExp(/\/(.*?).json/gm);
-    const matches = findFile.exec(url.href);
-    const fileParts = matches[1].split('/');
-    const fileName = fileParts[fileParts.length - 1];
-    console.log(fileName);
     // e.g.`workbox-precache-v2-http://localhost:4200/`;
     const cacheName = `workbox-precache-v2-${location.origin}/`;
-
+    
     // remove older versions of the page
     cache.keys().then((keys) => {
+        // get file name
+        
+        const getFileName = (url) => {
+            const findFile = new RegExp(/\/(.*?).json/gm);
+            const matches = findFile.exec(url);
+            const fileParts = matches[1].split('/');
+            return fileParts[fileParts.length - 1];
+        };
+        const fileName = getFileName(url.href)
+        console.log(fileName);
         console.log({keys});
+
+        // find all cached versions of this page
         const matches = keys.filter(request => {
             return request.url.includes(fileName);
         });
@@ -40,17 +46,9 @@ const fetchCachedNextData = (event) => {
             .then((responses) => {
 
                 const cachedResponse = responses[0];
-                if (responses.length > 0) {
-
-                }
-                // delete other matches
-                console.log({responses});
-                // for (const response of responses) {
-                //     cache.delete(response);
-                // }
+                // fetch response to update cache
                 const fetchedResponse = fetch(event.request).then((networkResponse) => {
                     cache.put(event.request, networkResponse.clone());
-                    
                     return networkResponse;
                 });
                 if (cachedResponse) {
