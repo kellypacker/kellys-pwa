@@ -53,7 +53,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          <Link href="/test">TEST</Link>
+          <Link href="/test">PWA Safari offline test</Link>
         </h1>
         <h2>Using {storageUsage} out of {storageQuota} bytes.</h2>
       </main>

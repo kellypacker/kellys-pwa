@@ -1,42 +1,42 @@
-'use strict'
+// 'use strict'
 
-const fetchCachedNextData = (event) => {
-    const url = new URL(event.request.url);
+// const fetchCachedNextData = (event) => {
+//     const url = new URL(event.request.url);
     
-    if (!url.href.includes('/_next/data')) return;
-    // e.g.`workbox-precache-v2-http://localhost:4200/`;
-    const cacheName = `workbox-precache-v2-${location.origin}/`;
-    // match request to cache, also fetch request. 
-    // update cache and serve what is available
-    event.respondWith(caches.open(cacheName).then((cache) => {
-        return caches.match(event.request, {ignoreMethod: true, ignoreVary: true, ignoreSearch: true})
-            .then((cachedResponse) => {
-                // const fetchedResponse = fetch(event.request).then((networkResponse) => {
-                //     cache.put(event.request, networkResponse.clone());
+//     if (!url.href.includes('/_next/data')) return;
+//     // e.g.`workbox-precache-v2-http://localhost:4200/`;
+//     const cacheName = `workbox-precache-v2-${location.origin}/`;
+//     // match request to cache, also fetch request. 
+//     // update cache and serve what is available
+//     event.respondWith(caches.open(cacheName).then((cache) => {
+//         return caches.match(event.request, {ignoreMethod: true, ignoreVary: true, ignoreSearch: true})
+//             .then((cachedResponse) => {
+//                 // const fetchedResponse = fetch(event.request).then((networkResponse) => {
+//                 //     cache.put(event.request, networkResponse.clone());
                     
-                //     return networkResponse;
-                // });
-                if (cachedResponse) {
-                    console.log('FOUND', url.href);
-                } else {
+//                 //     return networkResponse;
+//                 // });
+//                 if (cachedResponse) {
+//                     console.log('FOUND', url.href);
+//                 } else {
                     
-                    console.log('NOT FOUND', url.href);
-                }
+//                     console.log('NOT FOUND', url.href);
+//                 }
     
-                return cachedResponse || fetchedResponse;
-            }
-        );
-    }));
-  };
+//                 return cachedResponse || fetchedResponse;
+//             }
+//         );
+//     }));
+//   };
 
-// use one fetch to keep track of which fetches are handled
-self.addEventListener('fetch', (event) => {
-    const url = new URL(event.request.url);
+// // use one fetch to keep track of which fetches are handled
+// self.addEventListener('fetch', (event) => {
+//     const url = new URL(event.request.url);
   
-    const isNextData = url.href.includes('/_next/data');
+//     const isNextData = url.href.includes('/_next/data');
   
-    if (isNextData) {
-      return fetchCachedNextData(event);
-    }
-  });
+//     if (isNextData) {
+//       return fetchCachedNextData(event);
+//     }
+//   });
   
