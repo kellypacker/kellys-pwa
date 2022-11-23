@@ -13,7 +13,7 @@ module.exports = async (phase) => {
             // adding these made it run in prod?
             sw: 'sw.js',
             dest: 'public',
-            navigateFallback: "/offline",
+            // navigateFallback: "/offline",
             // sourcemap: true,
             cleanupOutdatedCaches: true,
         },
