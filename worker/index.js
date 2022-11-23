@@ -24,17 +24,20 @@ import {StaleWhileRevalidate} from 'workbox-strategies';
 };
 
 self.addEventListener('message', event => {
-    console.log('Message', event);
+    console.log('Message', event.data.action);
     if (event.data && event.data.action === 'CLEAR_CACHE') {
       event.waitUntil(
-        caches.keys().then((keyList) =>
-          // eslint-disable-next-line no-undef
-          Promise.all(
-            keyList.map((key) => {
-                return caches.delete(key);
-            })
-          )
-        )
+        caches.keys().then((keyList) => {
+            console.log(keyList);
+            const cacheToDelete = keyList.filter(key => key !== 'start-url');
+            console.log({cacheToDelete});
+            // eslint-disable-next-line no-undef
+            return Promise.all(
+                cacheToDelete.map((key) => {
+                    return caches.delete(key);
+                })
+            )
+        })
       );
     }
 });
