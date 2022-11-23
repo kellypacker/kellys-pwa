@@ -105,6 +105,34 @@ self.addEventListener('message', event => {
         })
     }
 });
+self.addEventListener('message', event => {
+    if (event.data && event.data.action === 'GET_CACHE_START_URL') {
+        queryCache(`start-url`).then((response) => {
+            self.clients.matchAll({type: 'window'}).then((clients) => {
+                for (const client of clients) {
+                    client.postMessage({
+                        type: 'RETURN_CACHE_START_URL',
+                        payload: response,
+                    });
+                }
+            });
+        })
+    }
+});
+self.addEventListener('message', event => {
+    if (event.data && event.data.action === 'GET_CACHE_NEXT_DATA') {
+        queryCache(`next-data`).then((response) => {
+            self.clients.matchAll({type: 'window'}).then((clients) => {
+                for (const client of clients) {
+                    client.postMessage({
+                        type: 'RETURN_CACHE_NEXT_DATA',
+                        payload: response,
+                    });
+                }
+            });
+        })
+    }
+});
 
 registerRoute(/\/_next\/data\/.+\/.+\.json/i, new StaleWhileRevalidate({
     // cacheName: "workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/",
