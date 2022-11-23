@@ -1,15 +1,32 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [cache, setCache] = useState();
 
   const handleClear = (e) => {
-      e.preventDefault();
-      window.workbox.messageSW({
-          command: 'log',
-          message: 'clear cache',
-          action: 'CLEAR_CACHE',
-      });
+    e.preventDefault();
+    window.workbox.messageSW({
+      command: 'log',
+      message: 'clear cache',
+      action: 'CLEAR_CACHE',
+    });
+  };
+
+  useEffect(() => {
+    // Listen to the response
+    navigator.serviceWorker.onmessage = (event) => {
+      setCache(event.data.cache);
+    };
+  }, []);
+
+  const handleGetCache = async () => {
+    window.workbox.messageSW({
+      command: 'log',
+      message: 'get cache',
+      action: 'GET_CACHE',
+    });
   };
 
   return (
@@ -51,6 +68,16 @@ export default function Home() {
         </h1>
 
         <button onClick={handleClear}>Clear Cache</button>
+        <button onClick={handleGetCache}>List Cache</button>
+        <div>
+          <table><tbody>
+
+            {cache && cache.map(url => (
+              <tr key={url}><td>{url}</td></tr>
+              ))}
+              </tbody>
+            </table>
+        </div>
       </main>
 
     </div>

@@ -42,9 +42,53 @@ self.addEventListener('message', event => {
     }
 });
 
+async function getCachedData(cacheName, url) {
+    const cacheStorage = await caches.open(cacheName);
+    const keys = await cacheStorage.keys();
+    // const cachedResponse = await cacheStorage.match(url); // Returns a promise w/ matched cache
+    // if(!cachedResponse || !cachedResponse.ok) {return false}
+    // console.log(await cachedResponse);
+    // console.log(await cachedResponse.json()); // prints json object with value of key matched
+    // return await cachedResponse.json();
+    console.log({keys});
+    return keys;
+};
+
+function queryCache(cacheName) {
+    var urls = [];
+    return caches.open(cacheName).then(function (cache){
+        return cache.keys().then(function(keys){
+            return Promise.all(
+                keys.map(function(k) {
+                    urls.push(k.url); 
+                    return k.url;
+                })
+            );
+        }).then(function(u){ 
+            return urls;
+        })
+    })
+}
+
+
+self.addEventListener('message', event => {
+    if (event.data && event.data.action === 'GET_CACHE') {
+        queryCache(`workbox-precache-v2-${self.location.origin}/`).then((response) => {
+            self.clients.matchAll({type: 'window'}).then((clients) => {
+                for (const client of clients) {
+                    client.postMessage({
+                        type: 'LIST_CACHE',
+                        cache: response,
+                    });
+                }
+            });
+        })
+    }
+});
+
 registerRoute(/\/_next\/data\/.+\/.+\.json/i, new StaleWhileRevalidate({
     // cacheName: "workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/",
-    cacheName: "workbox-precache-v2-https://localhost:3000/",
+    cacheName: `workbox-precache-v2-${self.location.origin}/`,
     networkTimeoutSeconds: 10,
     matchOptions: {
         ignoreSearch: true
