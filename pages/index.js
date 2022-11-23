@@ -70,8 +70,9 @@ export default function Home() {
         <button onClick={handleClear}>Clear Cache</button>
         <button onClick={handleGetCache}>List Cache</button>
         <div>
+          <h2>workbox-precache-v2-${location.origin}/</h2>
+          {cache && `Records: ${cache.length}`}
           <table><tbody>
-
             {cache && cache.map(url => (
               <tr key={url}><td>{url}</td></tr>
               ))}
