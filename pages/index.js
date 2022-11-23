@@ -4,74 +4,24 @@ import { useEffect, useState } from 'react';
 import CacheDisplay from '../components/cache-display';
 
 export default function Home() {
-  const [cacheNames, setCacheNames] = useState();
-  const [cacheStartUrl, setCacheStartUrl] = useState(['not retrieved']);
-  const [cacheNextData, setCacheNextData] = useState(['not retrieved']);
-  const [cache, setCache] = useState(['not retrieved']);
-  const [mainCacheName, setMainCacheName] = useState();
-
-  const handleClear = (e) => {
-    e.preventDefault();
-    window.workbox.messageSW({
-      command: 'log',
-      message: 'clear cache',
-      action: 'CLEAR_CACHE',
-    });
-  };
-  useEffect(() => {
-    if (location) {
-      setMainCacheName(`workbox-precache-v2-${location.origin}/`);
-    }
-  }, []);
+  const [activated, setActivated] = useState('not yet');
+  const [installed, setInstalled] = useState('not yet');
 
   useEffect(() => {
     // Listen to the response
     navigator.serviceWorker.onmessage = (event) => {
-      if (event.data.type === 'RETURN_CACHE_NAMES') {
-        setCacheNames(event.data.payload);
+      if (event.data.type === 'ACTIVATED') {
+        setActivated('activated');
       }
-      if (event.data.type === 'RETURN_CACHE') {
-        setCache(event.data.payload);
+      if (event.data.type === 'INSTALLED') {
+        setInstalled('installed');
       }
-      if (event.data.type === 'RETURN_CACHE_START_URL') {
-        setCacheStartUrl(event.data.payload);
-      }
-      if (event.data.type === 'RETURN_CACHE_NEXT_DATA') {
-        setCacheNextData(event.data.payload);
-      }
+     
     };
   
   }, []);
 
-  const handleGetCacheNames = async () => {
-    window.workbox.messageSW({
-      command: 'log',
-      message: 'get cache names',
-      action: 'GET_CACHE_NAMES',
-    });
-  };
-  
-  const handleGetCache = async () => {
-    window.workbox.messageSW({
-      command: 'log',
-      message: 'get cache',
-      action: 'GET_CACHE',
-    });
-  };
-  const handleGetCacheStartUrl = async () => {
-    window.workbox.messageSW({
-      command: 'log',
-      message: 'get cache start url',
-      action: 'GET_CACHE_START_URL',
-    });
-  };
-  const handleGetCacheNextData = async () => {
-    window.workbox.messageSW({
-      command: 'log',
-      message: 'get cache next data',
-      action: 'GET_CACHE_NEXT_DATA',
-    });
-  };
+
 
   return (
     <div className="container">
@@ -110,6 +60,8 @@ export default function Home() {
         <h1 className="title">
           <Link href="/test">PWA Safari offline test</Link>
         </h1>
+        <h2>activated: {activated}</h2>
+        <h2>installed: {installed}</h2>
         <CacheDisplay />
 
       </main>
