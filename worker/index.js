@@ -12,7 +12,6 @@ import {StaleWhileRevalidate} from 'workbox-strategies';
       cachedResponse,
       event
     }) => {
-        console.log('ignoreQueryStringPlugin');
       console.log(request.url);
       if (cachedResponse) {
         return cachedResponse;
@@ -41,6 +40,27 @@ self.addEventListener('message', event => {
       );
     }
 });
+
+self.addEventListener('message', event => {
+    console.log('Message', event.data.action);
+    if (event.data && event.data.action === 'GET_CACHE_NAMES') {
+      event.waitUntil(
+        caches.keys().then((keyList) => {
+            console.log(keyList);
+            self.clients.matchAll({type: 'window'}).then((clients) => {
+                for (const client of clients) {
+                    client.postMessage({
+                        type: 'RETURN_CACHE_NAMES',
+                        payload: keyList,
+                    });
+                }
+            });
+        })
+      );
+    }
+});
+
+
 
 async function getCachedData(cacheName, url) {
     const cacheStorage = await caches.open(cacheName);
@@ -77,8 +97,8 @@ self.addEventListener('message', event => {
             self.clients.matchAll({type: 'window'}).then((clients) => {
                 for (const client of clients) {
                     client.postMessage({
-                        type: 'LIST_CACHE',
-                        cache: response,
+                        type: 'RETURN_CACHE',
+                        payload: response,
                     });
                 }
             });
