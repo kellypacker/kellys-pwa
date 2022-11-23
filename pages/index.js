@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Home() {
 
-  const handleClear = () => {
+  const handleClear = (e) => {
       e.preventDefault();
       window.workbox.messageSW({
           command: 'log',
@@ -11,6 +11,7 @@ export default function Home() {
           action: 'CLEAR_CACHE',
       });
   };
+
   return (
     <div className="container">
       <Head>
