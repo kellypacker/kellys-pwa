@@ -23,6 +23,22 @@ import {StaleWhileRevalidate} from 'workbox-strategies';
     }
 };
 
+self.addEventListener('message', event => {
+    console.log('Message', event);
+    if (event.data && event.data.action === 'CLEAR_CACHE') {
+      event.waitUntil(
+        caches.keys().then((keyList) =>
+          // eslint-disable-next-line no-undef
+          Promise.all(
+            keyList.map((key) => {
+                return caches.delete(key);
+            })
+          )
+        )
+      );
+    }
+});
+
 registerRoute(/\/_next\/data\/.+\/.+\.json/i, new StaleWhileRevalidate({
     // cacheName: "workbox-precache-v2-https://merry-bonbon-pwa.netlify.app/",
     cacheName: "workbox-precache-v2-https://localhost:3000/",
