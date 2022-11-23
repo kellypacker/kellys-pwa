@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import CacheDisplay from '../components/cache-display';
 
 export default function Home() {
-  const [activated, setActivated] = useState('not yet');
-  const [installed, setInstalled] = useState('not yet');
+
+
+
 
   return (
     <div className="container">
@@ -44,7 +45,7 @@ export default function Home() {
         <h1 className="title">
           <Link href="/test">PWA Safari offline test</Link>
         </h1>
-      
+       
         <CacheDisplay />
 
       </main>

@@ -22,30 +22,6 @@ import {StaleWhileRevalidate} from 'workbox-strategies';
     }
 };
 
-// self.addEventListener('install', (evt) => {
-//     console.log('service worker has been installed');
-//     self.clients.matchAll({type: 'window'}).then((clients) => {
-//         for (const client of clients) {
-//             client.postMessage({
-//                 type: 'INSTALLED',
-//                 payload: true,
-//             });
-//         }
-//     });
-// });
-
-// self.addEventListener('activate', evt=> {
-//     console.log('service worker has been activated');
-//     self.clients.matchAll({type: 'window'}).then((clients) => {
-//         for (const client of clients) {
-//             client.postMessage({
-//                 type: 'ACTIVATED',
-//                 payload: true,
-//             });
-//         }
-//     });
-// });
-
 self.addEventListener('message', event => {
     console.log('Message', event.data.action);
     if (event.data && event.data.action === 'CLEAR_CACHE') {

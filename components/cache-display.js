@@ -73,12 +73,12 @@ function CacheDisplay() {
     return (
         <>
             {/* <button onClick={handleClear}>Clear Cache</button> */}
-            <button onClick={handleGetCacheNames}>Get Names</button>
-            <button onClick={handleGetCache}>List Cache precache</button>
-            <button onClick={handleGetCacheStartUrl}>List Cache start url</button>
-            <button onClick={handleGetCacheNextData}>List Cache next data</button>
+            
+            
             <hr />
             <div>
+                <h2>Cache names:</h2>
+                <button style={{padding: '10px', display: 'block'}} onClick={handleGetCacheNames}>List Cache Names</button>
                 <ul>
                     {cacheNames && cacheNames.map(name => (
                         <li>{name}</li>
@@ -88,8 +88,9 @@ function CacheDisplay() {
             <hr />
 
             <div>
-                <h2>start-url</h2>
-                {cacheStartUrl && `Records: ${cacheStartUrl.length}`}
+                <h2>Cache: start-url</h2>
+                <button style={{padding: '10px', display: 'block'}} onClick={handleGetCacheStartUrl}>List Cache start url</button>
+                {cacheStartUrl &&  cacheStartUrl[0] !== 'not retrieved' && `Records: ${cacheStartUrl.length}`}
                 <table><tbody>
                     {cacheStartUrl && cacheStartUrl.map(url => (
                         <tr key={url}><td>{url}</td></tr>
@@ -100,20 +101,9 @@ function CacheDisplay() {
             <hr />
 
             <div>
-                <h2>next-data</h2>
-                {cacheNextData && `Records: ${cacheNextData.length}`}
-                <table><tbody>
-                    {cacheNextData && cacheNextData.map(url => (
-                        <tr key={url}><td>{url}</td></tr>
-                    ))}
-                </tbody>
-                </table>
-            </div>
-            <hr />
-
-            <div>
-                <h2>{mainCacheName}</h2>
-                {cache && `Records: ${cache.length}`}
+                <h2>Prefetch Cache: {mainCacheName}</h2>
+                <button style={{padding: '10px', display: 'block'}} onClick={handleGetCache}>List Cache precache</button>
+                {cache && cache[0] !== 'not retrieved' && `Records: ${cache.length}`}
                 <table><tbody>
                     {cache && cache.map(url => (
                         <tr key={url}><td>{url}</td></tr>

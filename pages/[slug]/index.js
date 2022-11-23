@@ -25,14 +25,14 @@ export default function TestNested(props) {
 
             <h2>uhhhhh</h2>
 
-            <h2>
+            {/* <h2>
                 <Link href="/">Home</Link>
-            </h2>
+            </h2> */}
             <h2>
                 <Link href="/test">Back to test</Link>
             </h2>
             <h2>
-                <Link href="/test">To nested</Link>
+                <Link href="/test-nested">To nested</Link>
             </h2>
         </>
     )
