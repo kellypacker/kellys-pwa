@@ -110,7 +110,7 @@ export default function Home() {
           <Link href="/test">PWA Safari offline test</Link>
         </h1>
 
-        <button onClick={handleClear}>Clear Cache</button>
+        {/* <button onClick={handleClear}>Clear Cache</button> */}
         <button onClick={handleGetCacheNames}>Get Names</button>
         <button onClick={handleGetCache}>List Cache precache</button>
         <button onClick={handleGetCacheStartUrl}>List Cache start url</button>
