@@ -4,20 +4,17 @@ export default function Test() {
     return (
         <>
             <h1>TEST Offline pwa in safari</h1>
-
-            <h1>
+            <h2>
+                <Link href="/">Home</Link>
+            </h2>
+            <h2>
                 <Link href="/test-nested">TEST nested</Link>
-            </h1>
+            </h2>
             
-            <h1>
-                <Link href="/test-slug">TEST slug</Link>
-            </h1>
-            <h1>
-                <a href="/test-slug">Link TEST slug</a>
-            </h1>
-            <h1>
-                <a href="https://merry-bonbon-pwa.netlify.app/test-slug">Link TEST slug full</a>
-            </h1>
+            <h2>
+                <Link href="/[slug]" as="/test-slug">TEST slug</Link>
+            </h2>
+           
         </>
     )
 }

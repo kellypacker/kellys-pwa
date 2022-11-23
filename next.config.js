@@ -14,7 +14,7 @@ module.exports = async (phase) => {
             sw: 'sw.js',
             dest: 'public',
             navigateFallback: "/offline",
-            sourcemap: true,
+            // sourcemap: true,
             cleanupOutdatedCaches: true,
         },
     }
