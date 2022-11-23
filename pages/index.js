@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
+import CacheDisplay from '../components/cache-display';
 
 export default function Home() {
   const [cacheNames, setCacheNames] = useState();
@@ -109,56 +110,8 @@ export default function Home() {
         <h1 className="title">
           <Link href="/test">PWA Safari offline test</Link>
         </h1>
+        <CacheDisplay />
 
-        {/* <button onClick={handleClear}>Clear Cache</button> */}
-        <button onClick={handleGetCacheNames}>Get Names</button>
-        <button onClick={handleGetCache}>List Cache precache</button>
-        <button onClick={handleGetCacheStartUrl}>List Cache start url</button>
-        <button onClick={handleGetCacheNextData}>List Cache next data</button>
-        <hr />
-        <div>
-          <ul>
-            {cacheNames && cacheNames.map(name => (
-              <li>{name}</li>
-            ))}
-          </ul>
-        </div>
-        <hr />
-
-        <div>
-          <h2>start-url</h2>
-          {cacheStartUrl && `Records: ${cacheStartUrl.length}`}
-          <table><tbody>
-            {cacheStartUrl && cacheStartUrl.map(url => (
-              <tr key={url}><td>{url}</td></tr>
-              ))}
-              </tbody>
-            </table>
-        </div>
-        <hr />
-
-        <div>
-          <h2>next-data</h2>
-          {cacheNextData && `Records: ${cacheNextData.length}`}
-          <table><tbody>
-            {cacheNextData && cacheNextData.map(url => (
-              <tr key={url}><td>{url}</td></tr>
-              ))}
-              </tbody>
-            </table>
-        </div>
-        <hr />
-
-        <div>
-          <h2>{mainCacheName}</h2>
-          {cache && `Records: ${cache.length}`}
-          <table><tbody>
-            {cache && cache.map(url => (
-              <tr key={url}><td>{url}</td></tr>
-              ))}
-              </tbody>
-            </table>
-        </div>
       </main>
 
     </div>

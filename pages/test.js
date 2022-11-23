@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CacheDisplay from "../components/cache-display";
 
 export default function Test() {
     return (
@@ -14,6 +15,8 @@ export default function Test() {
             <h2>
                 <Link href="/[slug]" as="/test-slug">TEST slug</Link>
             </h2>
+
+            <CacheDisplay />
            
         </>
     )
