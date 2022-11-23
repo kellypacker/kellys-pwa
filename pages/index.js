@@ -7,22 +7,6 @@ export default function Home() {
   const [activated, setActivated] = useState('not yet');
   const [installed, setInstalled] = useState('not yet');
 
-  useEffect(() => {
-    // Listen to the response
-    navigator.serviceWorker.onmessage = (event) => {
-      if (event.data.type === 'ACTIVATED') {
-        setActivated('activated');
-      }
-      if (event.data.type === 'INSTALLED') {
-        setInstalled('installed');
-      }
-     
-    };
-  
-  }, []);
-
-
-
   return (
     <div className="container">
       <Head>
@@ -60,8 +44,7 @@ export default function Home() {
         <h1 className="title">
           <Link href="/test">PWA Safari offline test</Link>
         </h1>
-        <h2>activated: {activated}</h2>
-        <h2>installed: {installed}</h2>
+      
         <CacheDisplay />
 
       </main>
